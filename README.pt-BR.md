@@ -3,6 +3,8 @@
 
 Uma aplicação simples de blog em Node.Js.
 
+[🇬🇧 - English](./README.md)
+
 ## TODO
 - [ ] Multi linguagem
 - [ ] Funções de "curtir" e "compartilhar"

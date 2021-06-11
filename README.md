@@ -3,7 +3,7 @@
 
 A simple Node.Js blog application.
 
-[🇧🇷 - Português](https://github.com/samuel-s-marques/Blog/blob/main/README.md)
+[🇧🇷 - Português](./README.pt-BR.md)
 
 ### TODO List
 - [ ] Multi language

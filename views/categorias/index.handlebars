@@ -1,0 +1,21 @@
+<div class="row">
+	<h2 class="col-auto me-auto">Categorias:</h4>
+
+	{{#if user.role}}
+	<h2 class="col-auto"><a href="/admin/categorias">Editar categorias</a></h4>
+	{{else}}
+	{{/if}}
+</div>
+<hr>
+
+{{#each categorias}}
+	<a href="/categorias/{{slug}}"><h5>{{nome}}</h5></a>
+{{else}}
+
+{{/each}}
+
+<style type="text/css">
+	h4 {
+		display: inline-block;
+	}
+</style>

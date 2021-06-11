@@ -1,0 +1,64 @@
+{{#section 'head'}}
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+{{/section}}
+
+{{#each erros}}
+	<div class="alert alert-danger">{{texto}}</div>
+{{else}}
+
+{{/each}}
+
+<div class="card">
+	<div class="card-body">
+		<h4>Nova postagem</h4>
+
+		<form action="/admin/postagens/nova" method="post">
+			<label for="titulo">Título:</label>
+			<input type="text" name="titulo" class="form-control" required>
+
+			<div class="row">
+				<div class="col">
+					<label for="slug" class="mt-2">Slug:</label>
+					<input type="text" name="slug" class="form-control" required>	
+				</div>
+				<div class="col">
+					<label for="categoria" class="mt-2">Categoria:</label>
+					<select class="form-select" name="categoria">
+						{{#each categorias}}
+							<option value="{{_id}}">{{nome}}</option>
+						{{else}}
+							<option value="0">Nenhuma categoria registrada.</option>
+						{{/each}}
+					</select>
+				</div>
+			</div>
+
+			<label for="descricao" class="mt-2">Descrição:</label>
+			<input type="text" name="descricao" class="form-control" required>
+
+			<label for="conteudo" class="mt-2">Conteúdo:</label>
+			<textarea id="summernote" name="conteudo"></textarea>
+
+			<button class="btn btn-success mt-2" type="submit">Criar postagem</button>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+		$('#summernote').summernote({
+			placeholder: 'Olá',
+			tabsize: 2,
+			height: 260,
+			maxHeight: 360,
+			toolbar: [
+				['style', ['style']],
+				['font', ['bold', 'underline', 'clear']],
+				['color', ['color']],
+				['para', ['ul', 'ol', 'paragraph']],
+				['table', ['table']],
+				['insert', ['link', 'picture', 'video']],
+				['view', ['fullscreen', 'codeview', 'help']]
+			]
+		});
+</script>

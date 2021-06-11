@@ -1,0 +1,73 @@
+<h3>Configurações</h3>
+<hr>
+
+<nav>
+	<div class="nav nav-tabs" id="nav-tab" role="tablist">
+		<button class="nav-link active" id="nav-email-tab" data-bs-toggle="tab" data-bs-target="#nav-email" type="button" role="tab" aria-controls="nav-email" aria-selected="true">E-mail</button>
+		<button class="nav-link" id="nav-senha-tab" data-bs-toggle="tab" data-bs-target="#nav-senha" type="button" role="tab" aria-controls="nav-senha" aria-selected="true">Senha</button>
+		<button class="nav-link" id="nav-notificacoes-tab" data-bs-toggle="tab" data-bs-target="#nav-notificacoes" type="button" role="tab" aria-controls="nav-notificacoes" aria-selected="true">Notificações</button>
+	</div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+	<div class="tab-pane fade show active" id="nav-email" role="tabpanel" aria-labelledby="nav-email-tab">
+		<label for="currentEmail" class="mt-2">E-mail atual:</label>
+		<input type="email" name="currentEmail" class="form-control mt-2" value="{{user.email}}" disabled>
+		<form action="" method="post">
+			<label for="newEmail" class="mt-1">Novo e-mail:</label>
+			<input type="email" name="newEmail" class="form-control mt-2" required>
+
+			<label for="senha" class="mt-1">Senha:</label>
+			<input type="password" name="senha" class="form-control mt-2" required minlength="5">
+			<small><a href="#">Esqueceu a senha?</a></small><br>
+
+			<button class="btn btn-success mt-4" type="submit">Salvar</button>
+		</form>
+	</div>
+	<div class="tab-pane fade show" id="nav-senha" role="tabpanel" aria-labelledby="nav-senha-tab">
+		<form action="" method="post">
+			<label for="senhaAtual" class="mt-2">Senha atual:</label>
+			<input type="password" name="senhaAtual" class="form-control mt-2" required minlength="5">
+			<small><a href="#">Esqueceu a senha?</a></small><br>
+
+			<div class="row">
+				<div class="col">
+					<label for="senhaNova1" class="mt-1">Nova senha:</label>
+					<input type="password" name="senhaNova1" class="form-control mt-2" id="senhaNova1" required onkeyup="checarSenha()" minlength="5">
+					<small id="avisoSenha"></small>
+				</div>
+
+				<div class="col">
+					<label for="senhaNova2" class="mt-1">Nova senha <small>(novamente)</small>:</label>
+					<input type="password" name="senhaNova2" class="form-control mt-2" id="senhaNova2" required onkeyup="checarSenha()" minlength="5">
+				</div>
+			</div>
+
+			<button class="btn btn-success mt-4" type="submit">Salvar</button>
+		</form>
+	</div>
+	<div class="tab-pane fade show" id="nav-notificacoes" role="tabpanel" aria-labelledby="nav-notificacoes-tab">Notificações</div>
+</div>
+
+<style type="text/css">
+	a:link {
+		text-decoration: none;
+	}
+</style>
+
+<script type="text/javascript">
+	let checarSenha = function() {
+		if(document.getElementById('senhaNova1').value.length >= 5){
+			if(document.getElementById('senhaNova1').value == document.getElementById('senhaNova2').value) {
+				document.getElementById('avisoSenha').style.color = 'green'
+				document.getElementById('avisoSenha').innerHTML = 'Tudo certo!'
+			} else {
+				document.getElementById('avisoSenha').style.color = 'red'
+				document.getElementById('avisoSenha').innerHTML = 'As senhas têm de bater!'
+			}
+		} else {
+			document.getElementById('avisoSenha').style.color = 'red'
+			document.getElementById('avisoSenha').innerHTML = 'A senha é muito pequena!'
+		}
+	}
+</script>

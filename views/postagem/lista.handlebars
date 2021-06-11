@@ -1,0 +1,25 @@
+<div class="row">
+	<h2 class="col-auto me-auto">Postagens recentes:</h4>
+
+	{{#if user.role}}
+	<h2 class="col-auto"><a href="/admin/categorias">Editar postagens</a></h4>
+	{{else}}
+	{{/if}}
+</div>
+
+<hr>
+{{#each postagens}}
+<div class="card mt-4">
+	<div class="card-body">
+		<h3>{{titulo}}</h3>
+
+		<p>{{descricao}}</p>
+		<a href="/postagem/{{slug}}" class="btn btn-success">Leia mais</a>
+		<hr>
+		<small>Categoria: <a href="/categorias/{{categoria.slug}}"><span class="badge bg-primary">{{categoria.nome}}</span></a></small><br>
+		<small>Data de publicação: {{#formatDate data}}{{/formatDate}}</small>
+	</div>
+</div>
+{{else}}
+	<h5>Nenhuma postagem!</h5>
+{{/each}}

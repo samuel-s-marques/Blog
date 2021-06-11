@@ -1,0 +1,99 @@
+{{#each erros}}
+	<div class="alert alert-danger">{{texto}}</div>
+{{else}}
+
+{{/each}}
+
+<h3>Registre-se</h3>
+<hr>
+
+<div class="card">
+	<div class="card-body">
+		<form action="" method="post">
+			<label for="nome">Nome:</label>
+			<input id="nome" type="text" name="nome" class="form-control" required onkeyup="checarNome()">
+			<small id="avisoNome"></small><br>
+
+			<label for="email">E-mail:</label>
+			<input id="email" type="email" name="email" class="form-control" required onkeyup="checarEmail()" minlength="3">
+			<small id="avisoEmail"></small><br>
+
+			<div class="row">
+				<div class="col">
+					<label for="senha">Senha:</label>
+					<input type="password" id="senha" name="senha" class="form-control" required onkeyup="checarSenha()" minlength="5">
+				</div>
+				<div class="col">
+					<label for="senha2">Senha <small>(novamente)</small>:</label>
+					<input type="password" id="senha2" name="senha2" class="form-control" required onkeyup="checarSenha()" minlength="5">
+					<small id="avisoSenha"></small><br>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-success">Criar conta</button>
+		</form>
+	</div>
+</div>
+
+<small><a href="/usuarios/login">Logue-se, caso tenha conta!</a></small>
+
+<style type="text/css">
+	label {
+		padding-top: 5px;
+		padding-bottom: 3px;
+	}
+</style>
+
+<script type="text/javascript">
+	let checarSenha = function() {
+		const avisoSenha = document.getElementById('avisoSenha')
+
+		if(document.getElementById('senha').value.length >= 5){
+			if(document.getElementById('senha').value == document.getElementById('senha2').value) {
+				avisoSenha.style.color = 'green'
+				avisoSenha.innerText = 'Tudo certo!'
+			} else {
+				avisoSenha.style.color = 'red'
+				avisoSenha.innerText = 'As senhas têm de bater!'
+			}
+		} else {
+			avisoSenha.style.color = 'red'
+			avisoSenha.innerText = 'A senha é muito pequena!'
+		}
+	}
+
+	let checarEmail = function() {
+		const email = document.getElementById('email').value
+		const avisoEmail = document.getElementById('avisoEmail')
+		
+		if (email.length >= 1){
+			if (validateEmail(email)){
+				avisoEmail.style.color = 'green'
+				avisoEmail.innerText = 'Tudo certo!'
+			} else {
+				avisoEmail.style.color = 'red'
+				avisoEmail.innerText = 'E-mail inválido!'
+			}
+		} else {
+			avisoEmail.style.color = 'red'
+			avisoEmail.innerText = 'E-mail necessário!'
+		}
+	}
+
+	let validateEmail = function(email) {
+		const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+		return re.test(email)
+	}
+
+	let checarNome = function() {
+		const nome = document.getElementById('nome').value
+		const avisoNome = document.getElementById('avisoNome')
+
+		if (nome.length >= 1){
+			avisoNome.style.color = 'green'
+			avisoNome.innerText = 'Tudo certo!'
+		} else {
+			avisoNome.style.color = 'red'
+			avisoNome.innerText = 'Nome necessário!'
+		}
+	}
+</script>

@@ -1,0 +1,17 @@
+<div class="card mt-2">
+	<div class="card-header">
+		<h4>{{postagem.titulo}}</h4>
+	</div>
+
+	<div class="card-body">
+		<h5 class="card-title">{{postagem.descricao}}</h5>
+		<p class="card-text" id="conteudo">{{postagem.conteudo}}</p>
+		<small>{{#formatDate postagem.data}}{{/formatDate}} - <a href="/categorias/{{postagem.categoria.slug}}"><span class="badge bg-primary">{{postagem.categoria.nome}}</span></a></small>
+		<br>
+	</div>
+</div>
+
+<script type="text/javascript">
+	let conteudo = $('#conteudo').html(document.getElementById('conteudo').innerHTML).text()
+	document.getElementById('conteudo').innerHTML = conteudo
+</script>

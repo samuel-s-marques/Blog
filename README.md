@@ -12,6 +12,7 @@ A simple Node.Js blog application.
 - [ ] Finish settings page
 - [ ] Search page
 - [ ] Donate page
+- [ ] Users page
 
 ### [Images](https://imgur.com/a/smMON1d)
 

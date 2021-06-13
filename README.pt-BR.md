@@ -9,7 +9,7 @@ Uma aplicação simples de blog em Node.Js.
 - [ ] Multi linguagem
 - [ ] Funções de "curtir" e "compartilhar"
 - [ ] Função de "salvar post"
-- [ ] Página de configuração
+- [x] Página de configuração
 - [ ] Página de pesquisa
 - [ ] Página de doação
 

@@ -19,9 +19,6 @@
 	const Usuario 		= mongoose.model('usuarios')
 	const passport 		= require('passport')
 	require('./config/auth.js')(passport)
-	
-	const en_translation = require('./resources/locales/en/translation')
-	const pt_translation = require('./resources/locales/pt/traducao')
 
 //	Configurações
 	//	Sessão

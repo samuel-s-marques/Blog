@@ -3,6 +3,8 @@ const router	= express.Router()
 const mongoose 	= require('mongoose')
 const {role} 	= require('../helpers/role')
 const mailer 	= require('../modules/mailer')
+const cheerio	= require('cheerio')
+
 require('../models/Categoria')
 require('../models/Postagem')
 require('../models/Usuario')
@@ -10,6 +12,9 @@ require('../models/Usuario')
 const Categoria = mongoose.model('categorias')
 const Usuario 	= mongoose.model('usuarios')
 const Postagem	= mongoose.model('postagens')
+
+const moment	= require('moment')
+moment.locale('pt-br')
 
 router.get('/', role, (req, res) => {
 	res.render('admin/index')
@@ -136,22 +141,28 @@ router.post('/postagens/nova', role, (req, res) => {
 			conteudo: req.body.conteudo
 		}
 
+		let conteudo = cheerio.load(req.body.conteudo)
+		let primeiraImagem = conteudo('img')[0].attribs.src
+
 		new Postagem(novaPostagem).save().then(() => {
 			Usuario.find({'notify.novosPosts': "true"}).lean().then((usuarios) => {
 				usuarios.forEach((usuario) => {
 					if (usuario.notify.novosPosts) {
 						let nome = usuario.nome
+						let admin = req.user.nome
+						let data = moment().format('ll')
 						let blog = "Blog do Sam"
 						let post = req.body.titulo
 						let descricao = req.body.descricao
 						let link = 'http://localhost:8080/postagem/' + req.body.slug
+						let contaLink = 'http://localhost:8080/usuarios/settings'
 
 						mailer.sendMail({
 							to: usuario.email,
 							from: 'sam@gmail.com',
 							subject: 'Novo post: ' + post,
 							template: 'new_post/notification',
-							context: { nome, blog, post, descricao, link }
+							context: { data, nome, blog, primeiraImagem, post, descricao, link, admin, contaLink }
 						}, (err) => {
 							if (err)
 								console.log('Não foi possível enviar e-mail de notificação: ' + err)

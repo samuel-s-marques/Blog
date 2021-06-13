@@ -25,3 +25,9 @@ Uma aplicação simples de blog em Node.Js.
 3. ```git clone https://github.com/samuel-s-marques/Blog.git```
 4. ```cd Blog```
 5. ```npm install```
+
+## Contribuindo
+Pull requests são bem-vindos. Para mudanças importantes, abra uma issue primeiro para discutir o que você gostaria de mudar.
+
+## Licença
+[MIT](https://choosealicense.com/licenses/mit/)

@@ -9,7 +9,7 @@ A simple Node.Js blog application.
 - [ ] Multi language
 - [ ] Like and share
 - [ ] Save to read later
-- [ ] Finish settings page
+- [x] Settings page
 - [ ] Search page
 - [ ] Donate page
 - [ ] Users page

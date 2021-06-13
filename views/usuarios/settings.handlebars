@@ -13,9 +13,9 @@
 	<div class="tab-pane fade show active" id="nav-email" role="tabpanel" aria-labelledby="nav-email-tab">
 		<label for="currentEmail" class="mt-2">E-mail atual:</label>
 		<input type="email" name="currentEmail" class="form-control mt-2" value="{{user.email}}" disabled>
-		<form action="" method="post">
-			<label for="newEmail" class="mt-1">Novo e-mail:</label>
-			<input type="email" name="newEmail" class="form-control mt-2" required>
+		<form action="/usuarios/changeEmail" method="post">
+			<label for="novoEmail" class="mt-1">Novo e-mail:</label>
+			<input type="email" name="novoEmail" class="form-control mt-2" required>
 
 			<label for="senha" class="mt-1">Senha:</label>
 			<input type="password" name="senha" class="form-control mt-2" required minlength="5">
@@ -25,15 +25,15 @@
 		</form>
 	</div>
 	<div class="tab-pane fade show" id="nav-senha" role="tabpanel" aria-labelledby="nav-senha-tab">
-		<form action="" method="post">
-			<label for="senhaAtual" class="mt-2">Senha atual:</label>
-			<input type="password" name="senhaAtual" class="form-control mt-2" required minlength="5">
+		<form action="/usuarios/changePassword" method="post">
+			<label for="senha" class="mt-2">Senha atual:</label>
+			<input type="password" name="senha" class="form-control mt-2" required minlength="5">
 			<small><a href="#">Esqueceu a senha?</a></small><br>
 
 			<div class="row">
 				<div class="col">
 					<label for="senhaNova1" class="mt-1">Nova senha:</label>
-					<input type="password" name="senhaNova1" class="form-control mt-2" id="senhaNova1" required onkeyup="checarSenha()" minlength="5">
+					<input type="password" name="senhaNova" class="form-control mt-2" id="senhaNova1" required onkeyup="checarSenha()" minlength="5">
 					<small id="avisoSenha"></small>
 				</div>
 

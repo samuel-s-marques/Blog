@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Samuel Marques",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -17,6 +17,8 @@
     "express-session": "^1.17.1",
     "moment": "^2.29.1",
     "mongoose": "^5.11.19",
+    "nodemailer": "^6.6.1",
+    "nodemailer-express-handlebars": "^4.0.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
   }

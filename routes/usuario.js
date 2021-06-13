@@ -6,6 +6,7 @@ const {isLogged} 	= require('../helpers/isLogged')
 const Usuario 		= mongoose.model('usuarios')
 const bcrypt 		= require('bcryptjs')
 const passport 		= require('passport')
+const { route } = require('./admin')
 
 router.get('/registro', (req, res) => {
 	res.render('usuarios/registro')
@@ -89,37 +90,91 @@ router.get('/settings', isLogged, (req, res) => {
 	res.render('usuarios/settings')
 })
 
-router.post('/settings', isLogged, (req, res, next) => {
-	bcrypt.compare(req.user.senha, req.body.senha, (error, success) => {
-		if(success){
-			Usuario.findOne({email: req.body.newEmail}).then((usuario) => {
-				if(usuario) {
-					req.flash('error_message', 'Este e-mail já está sendo usado!')
-					res.redirect('/usuarios/settings')
-				} else {
-					Usuario.findOne({email: req.user.email}).then((novoUsuario) => {
-						novoUsuario.email = req.body.newEmail
-
-						novoUsuario.save().then(() => {
-							req.flash('success_message', 'E-mail alterado com sucesso!')
+router.post('/changePassword', isLogged, (req, res, next) => {
+	Usuario.findOne({email: req.user.email}).select('+senha').then((usuario) => {
+		bcrypt.compare(req.body.senha, usuario.senha, (error, success) => {
+			if (success) {
+				bcrypt.genSalt(12, (error, salt) => {
+					bcrypt.hash(req.body.senhaNova, salt, (erro, hash) => {
+						if (erro){
+							req.flash('error_message', 'Houve um erro ao alterar a senha.')
 							res.redirect('/usuarios/settings')
+						}
+
+						usuario.senha = hash
+						usuario.save().then(() => {
+							req.flash('success_message', 'Senha alterada com sucesso!')
+							res.redirect('/')
 						}).catch((error) => {
-							req.flash('error_message', 'Houve um erro interno ao alterar o e-mail. Tente novamente mais tarde.')
+							req.flash('error_message', 'Houve um erro ao processar o usuário! Tente novamente mais tarde.')
 							res.redirect('/usuarios/settings')
 						})
+					})
+				})
+			} else {
+				req.flash('error_message', 'Senha incorreta.')
+				res.redirect('/usuarios/settings')
+			}
+		})
+	})
+})
+
+router.post('/changeEmail', isLogged, (req, res, next) => {
+	// vai ser usado para enviar e-mails mais tarde.
+	Usuario.findOne({email: req.user.email}).select('+senha').then((usuario) => {
+		bcrypt.compare(req.body.senha, usuario.senha, (error, success) => {
+			if (success) {
+				Usuario.findOne({email: req.body.novoEmail}).then((usuario_n) => {
+					if (usuario_n) {
+						req.flash('error_message', 'Este e-mail já está sendo usado.')
+						res.redirect('/usuarios/settings')
+					}
+
+					usuario.email = req.body.novoEmail
+
+					usuario.save().then(() => {
+						req.flash('success_message', 'E-mail alterado com sucesso!')
+						res.redirect('/usuarios/settings')
 					}).catch((error) => {
-						req.flash('error_message', 'Houve um erro interno ao procurar endereços. Tente novamente mais tarde.')
+						req.flash('error_message', 'Houve um erro interno ao alterar o e-mail. Tente novamente mais tarde.')
 						res.redirect('/usuarios/settings')
 					})
-				}
-			}).catch((error) => {
-				req.flash('error_message', 'Houve um erro ao verificar o e-mail. Tente novamente mais tarde.')
+				}).catch((error) => {
+					req.flash('error_message', 'Houve um erro interno ao verificar o e-mail. Tente novamente mais tarde.')
+					res.redirect('/usuarios/settings')
+				})
+			} else {
+				req.flash('error_message', 'Senha incorreta.')
 				res.redirect('/usuarios/settings')
-			})
+			}
+		})
+	})
+})
+
+router.post('/changeNotifications', isLogged, (req, res, next) => {
+	let novosPosts = req.body.novosPosts
+	let alteracaoSenha = req.body.alteracaoSenha
+
+	Usuario.findOne({email: req.user.email}).then((usuario) => {
+		if (novosPosts === 'on'){
+			usuario.notify.novosPosts = 'true'
 		} else {
-			req.flash('error_message', 'Senha incorreta.')
-			res.redirect('/usuarios/settings')
+			usuario.notify.novosPosts = 'false'
 		}
+
+		if (alteracaoSenha === 'on') {
+			usuario.notify.alteracaoSenha = 'true'
+		} else {
+			usuario.notify.alteracaoSenha = 'false'
+		}
+
+		usuario.save().then(() => {
+			req.flash('success_message', 'Alterações salvas.')
+			res.redirect('/usuarios/settings')
+		}).catch((error) => {
+			req.flash('error_message', 'Houve um erro ao salvar as alterações. Tente novamente mais tarde.')
+			res.redirect('/usuarios/settings')
+		})
 	})
 })
 

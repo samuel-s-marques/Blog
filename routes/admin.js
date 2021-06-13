@@ -1,11 +1,14 @@
-const express = require('express')
-const router = express.Router()
-const mongoose = require('mongoose')
-const {role} = require('../helpers/role')
+const express	= require('express')
+const router	= express.Router()
+const mongoose 	= require('mongoose')
+const {role} 	= require('../helpers/role')
+const mailer 	= require('../modules/mailer')
 require('../models/Categoria')
 require('../models/Postagem')
+require('../models/Usuario')
 
 const Categoria = mongoose.model('categorias')
+const Usuario 	= mongoose.model('usuarios')
 const Postagem	= mongoose.model('postagens')
 
 router.get('/', role, (req, res) => {
@@ -134,6 +137,29 @@ router.post('/postagens/nova', role, (req, res) => {
 		}
 
 		new Postagem(novaPostagem).save().then(() => {
+			Usuario.find({'notify.novosPosts': "true"}).lean().then((usuarios) => {
+				usuarios.forEach((usuario) => {
+					if (usuario.notify.novosPosts) {
+						let nome = usuario.nome
+						let blog = "Blog do Sam"
+						let post = req.body.titulo
+						let descricao = req.body.descricao
+						let link = 'http://localhost:8080/postagem/' + req.body.slug
+
+						mailer.sendMail({
+							to: usuario.email,
+							from: 'sam@gmail.com',
+							subject: 'Novo post: ' + post,
+							template: 'new_post/notification',
+							context: { nome, blog, post, descricao, link }
+						}, (err) => {
+							if (err)
+								console.log('Não foi possível enviar e-mail de notificação: ' + err)
+						})
+					}
+				})
+			})
+
 			req.flash('success_message', 'Postagem criada com sucesso!')
 			res.redirect('/admin/postagens')
 		}).catch((error) => {

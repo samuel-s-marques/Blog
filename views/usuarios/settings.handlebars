@@ -11,13 +11,13 @@
 
 <div class="tab-content" id="nav-tabContent">
 	<div class="tab-pane fade show active" id="nav-email" role="tabpanel" aria-labelledby="nav-email-tab">
-		<label for="currentEmail" class="mt-2">E-mail atual:</label>
+		<label for="currentEmail" class="mt-2 pdt">E-mail atual:</label>
 		<input type="email" name="currentEmail" class="form-control mt-2" value="{{user.email}}" disabled>
 		<form action="/usuarios/changeEmail" method="post">
-			<label for="novoEmail" class="mt-1">Novo e-mail:</label>
+			<label for="novoEmail" class="mt-1 pdt">Novo e-mail:</label>
 			<input type="email" name="novoEmail" class="form-control mt-2" required>
 
-			<label for="senha" class="mt-1">Senha:</label>
+			<label for="senha" class="mt-1 pdt">Senha:</label>
 			<input type="password" name="senha" class="form-control mt-2" required minlength="5">
 			<small><a href="#">Esqueceu a senha?</a></small><br>
 
@@ -32,13 +32,13 @@
 
 			<div class="row">
 				<div class="col">
-					<label for="senhaNova1" class="mt-1">Nova senha:</label>
+					<label for="senhaNova1" class="mt-1 pdt">Nova senha:</label>
 					<input type="password" name="senhaNova" class="form-control mt-2" id="senhaNova1" required onkeyup="checarSenha()" minlength="5">
 					<small id="avisoSenha"></small>
 				</div>
 
 				<div class="col">
-					<label for="senhaNova2" class="mt-1">Nova senha <small>(novamente)</small>:</label>
+					<label for="senhaNova2" class="mt-1 pdt">Nova senha <small>(novamente)</small>:</label>
 					<input type="password" name="senhaNova2" class="form-control mt-2" id="senhaNova2" required onkeyup="checarSenha()" minlength="5">
 				</div>
 			</div>
@@ -46,12 +46,38 @@
 			<button class="btn btn-success mt-4" type="submit">Salvar</button>
 		</form>
 	</div>
-	<div class="tab-pane fade show" id="nav-notificacoes" role="tabpanel" aria-labelledby="nav-notificacoes-tab">Notificações</div>
+	<div class="tab-pane fade show" id="nav-notificacoes" role="tabpanel" aria-labelledby="nav-notificacoes-tab">
+		<form action="/usuarios/changeNotifications" method="post">
+			<div class="form-check">
+				{{#if user.notify.novosPosts}}
+				<input class="form-check-input" type="checkbox" id="novosPosts" name="novosPosts" checked>
+				{{else}}
+				<input class="form-check-input" type="checkbox" id="novosPosts" name="novosPosts">
+				{{/if}}
+				<label class="form-check-label" for="novosPosts">Novos posts</label>
+			</div>
+
+			<div class="form-check">
+				{{#if user.notify.alteracaoSenha}}
+				<input class="form-check-input" type="checkbox" value="" id="alteracaoSenha" name="alteracaoSenha" checked>
+				{{else}}
+				<input class="form-check-input" type="checkbox" value="" id="alteracaoSenha" name="alteracaoSenha">
+				{{/if}}
+				<label class="form-check-label" for="alteracaoSenha">Alterações de senhas</label>
+			</div>
+
+			<button class="btn btn-success mt-4" type="submit">Salvar</button>
+		</form>
+	</div>
 </div>
 
 <style type="text/css">
 	a:link {
 		text-decoration: none;
+	}
+
+	.form-check {
+		padding-top: 15px;
 	}
 </style>
 

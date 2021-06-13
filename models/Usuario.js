@@ -14,6 +14,10 @@ const Usuario = new Schema({
 		type: Number,
 		default: 0
 	},
+	notify: {
+		novosPosts: {type: Boolean, default: 1},
+		alteracaoSenha: {type: Boolean, default: 1}
+	},
 	senha: {
 		type: String,
 		required: true,

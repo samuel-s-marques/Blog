@@ -10,10 +10,10 @@
 	<div class="card-body">
 		<form action="/admin/categorias/edit" method="post">
 			<input type="hidden" name="id" value="{{categoria._id}}">
-			<label for="nome">Nome:</label>
+			<label for="nome" class="pdt">Nome:</label>
 			<input class="form-control" type="text" name="nome" id="nome" placeholder="Nome da categoria" required value="{{categoria.nome}}">
 
-			<label for="slug">Slug:</label>
+			<label for="slug" class="pdt">Slug:</label>
 			<input class="form-control" type="text" name="slug" id="slug" placeholder="Slug da categoria" required value="{{categoria.slug}}">
 
 			<br>

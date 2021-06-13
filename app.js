@@ -19,6 +19,9 @@
 	const Usuario 		= mongoose.model('usuarios')
 	const passport 		= require('passport')
 	require('./config/auth.js')(passport)
+	
+	const en_translation = require('./resources/locales/en/translation')
+	const pt_translation = require('./resources/locales/pt/traducao')
 
 //	Configurações
 	//	Sessão
@@ -154,7 +157,7 @@
 	})
 
 	app.get('/postagens', (req, res) => {
-		Postagem.find().lean().then((postagens) => {
+		Postagem.find().lean().populate('categoria').sort({data: 'desc'}).then((postagens) => {
 			res.render('postagem/lista', {postagens: postagens})
 		}).catch((error) => {
 			req.flash('error_message', 'Houve um erro interno ao listar as postagens.')

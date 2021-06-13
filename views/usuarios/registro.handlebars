@@ -10,21 +10,21 @@
 <div class="card">
 	<div class="card-body">
 		<form action="" method="post">
-			<label for="nome">Nome:</label>
+			<label for="nome" class="pdt">Nome:</label>
 			<input id="nome" type="text" name="nome" class="form-control" required onkeyup="checarNome()">
 			<small id="avisoNome"></small><br>
 
-			<label for="email">E-mail:</label>
+			<label for="email" class="pdt">E-mail:</label>
 			<input id="email" type="email" name="email" class="form-control" required onkeyup="checarEmail()" minlength="3">
 			<small id="avisoEmail"></small><br>
 
 			<div class="row">
 				<div class="col">
-					<label for="senha">Senha:</label>
+					<label for="senha" class="pdt">Senha:</label>
 					<input type="password" id="senha" name="senha" class="form-control" required onkeyup="checarSenha()" minlength="5">
 				</div>
 				<div class="col">
-					<label for="senha2">Senha <small>(novamente)</small>:</label>
+					<label for="senha2" class="pdt">Senha <small>(novamente)</small>:</label>
 					<input type="password" id="senha2" name="senha2" class="form-control" required onkeyup="checarSenha()" minlength="5">
 					<small id="avisoSenha"></small><br>
 				</div>
@@ -35,13 +35,6 @@
 </div>
 
 <small><a href="/usuarios/login">Logue-se, caso tenha conta!</a></small>
-
-<style type="text/css">
-	label {
-		padding-top: 5px;
-		padding-bottom: 3px;
-	}
-</style>
 
 <script type="text/javascript">
 	let checarSenha = function() {

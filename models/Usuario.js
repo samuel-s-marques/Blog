@@ -22,11 +22,16 @@ const Usuario = new Schema({
 		type: String,
 		required: true,
 		select: false
+	},
+	banido: {
+		type: Boolean,
+		default: 0
 	}
 }, {
 	toObject: {
 		virtuals: true,
-	}
+	},
+	timestamps: true
 })
 
 mongoose.model('usuarios', Usuario)

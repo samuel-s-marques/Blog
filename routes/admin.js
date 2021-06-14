@@ -226,4 +226,85 @@ router.post('/postagens/deletar', role, (req, res) => {
 	})
 })
 
+router.get('/usuarios/lista', role, (req, res) => {
+	Usuario.find().lean().then((usuarios) => {
+		res.render('admin/listaUsuarios', {usuarios: usuarios})
+	}).catch((error) => {
+		req.flash('error_message', 'Houve um erro ao carregar a página.')
+		res.redirect('/')
+	})
+})
+
+router.post('/usuarios/banir', role, (req, res) => {
+	Usuario.findOne({_id: req.body.id}).then((usuario) => {
+		usuario.banido = true
+
+		usuario.save().then(() => {
+			req.flash('success_message', 'Usuário banido com sucesso.')
+
+			let admin = req.user.nome
+			let data = moment().format('ll')
+			let blog = "Blog do Sam"
+			let motivo = req.body.messagetext
+			let appeal = 'http://localhost:8080/appeal/usuario/' + req.body.id
+
+			mailer.sendMail({
+				to: usuario.email,
+				from: 'sam@gmail.com',
+				subject: 'VOCÊ FOI BANIDO!',
+				template: 'user_banned/ban',
+				context: { data, blog, motivo, appeal, admin }
+			}, (err) => {
+				if (err)
+					console.log('Não foi possível enviar e-mail de notificação: ' + err)
+			})
+
+			res.redirect('/admin/usuarios/lista')
+		}).catch((error) => {
+			req.flash('error_message', 'Houve um erro ao banir o usuário.')
+			res.redirect('/admin/usuarios/lista')
+		})
+	}).catch((error) => {
+		console.log(error)
+		req.flash('error_message', 'Houve um erro ao procurar o usuário.')
+		res.redirect('/admin/usuarios/lista')
+	})
+})
+
+router.post('/usuarios/desbanir', role, (req, res) => {
+	Usuario.findOne({_id: req.body.id}).then((usuario) => {
+		usuario.banido = false
+
+		usuario.save().then(() => {
+			req.flash('success_message', 'Usuário desbanido com sucesso.')
+
+			let admin = req.user.nome
+			let data = moment().format('ll')
+			let blog = "Blog do Sam"
+			let motivo = req.body.messagetext
+			let appeal = 'http://localhost:8080/appeal/usuario/' + req.body.id
+
+			mailer.sendMail({
+				to: usuario.email,
+				from: 'sam@gmail.com',
+				subject: 'Você não está mais banido!',
+				template: 'user_banned/unban',
+				context: { data, blog, motivo, appeal, admin }
+			}, (err) => {
+				if (err)
+					console.log('Não foi possível enviar e-mail de notificação: ' + err)
+			})
+
+			res.redirect('/admin/usuarios/lista')
+		}).catch((error) => {
+			req.flash('error_message', 'Houve um erro ao banir o usuário.')
+			res.redirect('/admin/usuarios/lista')
+		})
+	}).catch((error) => {
+		console.log(error)
+		req.flash('error_message', 'Houve um erro ao procurar o usuário.')
+		res.redirect('/admin/usuarios/lista')
+	})
+})
+
 module.exports = router

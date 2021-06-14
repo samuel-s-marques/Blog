@@ -1,0 +1,50 @@
+<h2>Lista de usuários:</h2>
+<hr>
+
+{{#each usuarios}}
+	<div class="card mt-4">
+		<div class="card-body">
+			<h4>{{nome}}</h4>
+
+			<div class="row">
+				<small class="col-auto">{{email}}</small>
+
+				{{#if banido}}
+				<small class="col-auto"><span class="badge bg-danger">BANIDO</span></small>
+				{{else}}
+				{{/if}}
+			</div>
+
+			<small>Data de registro: {{#formatDate createdAt}}{{/formatDate}}</small>
+			<br>
+			<a href="/admin/usuarios/edit/{{_id}}" class="btn btn-primary mt-4">Visualizar usuário</a>
+			<button type="button" class="btn btn-danger mt-4" data-bs-toggle="modal" data-bs-target="#modalMessage">Banir usuário</button>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modalMessage" tabindex="-1" aria-labelledby="ModalMessageBan" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="ModalMessageBan">Deseja banir o usuário?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">
+					<form id="banUsuario" action="/admin/usuarios/banir" method="post">
+						<input type="hidden" name="id" value="{{_id}}">
+						<label type="text" for="message-text" class="col-form-label">Mensagem de banimento:</label>
+						<textarea class="form-control" id="message-text" name="messagetext"></textarea>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+					<button type="submit" form="banUsuario" class="btn btn-danger">Banir usuário</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{{else}}
+	<h4 class="mt-3">Nenhum usuário registrado.</h4>
+{{/each}}

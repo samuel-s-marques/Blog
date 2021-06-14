@@ -18,7 +18,12 @@
 			<small>Data de registro: {{#formatDate createdAt}}{{/formatDate}}</small>
 			<br>
 			<a href="/admin/usuarios/edit/{{_id}}" class="btn btn-primary mt-4">Visualizar usuário</a>
+
+			{{#if banido}}
+			<button type="button" class="btn btn-warning mt-4 text-dark" data-bs-toggle="modal" data-bs-target="#modalMessage">Desbanir usuário</button>
+			{{else}}
 			<button type="button" class="btn btn-danger mt-4" data-bs-toggle="modal" data-bs-target="#modalMessage">Banir usuário</button>
+			{{/if}}
 		</div>
 	</div>
 
@@ -31,16 +36,30 @@
 				</div>
 
 				<div class="modal-body">
-					<form id="banUsuario" action="/admin/usuarios/banir" method="post">
+					{{#if banido}}
+					<form id="banUsuario" action="/admin/usuarios/desbanir" method="post">
+					{{else}}
+					<form id="banUsuario" action="/admin/usuarios/banir" method="post"></form>
+					{{/if}}
 						<input type="hidden" name="id" value="{{_id}}">
+
+						{{#if banido}}
+						<label type="text" for="message-text" class="col-form-label">Mensagem de desbanimento:</label>
+						{{else}}
 						<label type="text" for="message-text" class="col-form-label">Mensagem de banimento:</label>
+						{{/if}}
 						<textarea class="form-control" id="message-text" name="messagetext"></textarea>
 					</form>
 				</div>
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-					<button type="submit" form="banUsuario" class="btn btn-danger">Banir usuário</button>
+
+					{{#if banido}}
+					<button type="submit" form="banUsuario" class="btn btn-danger">Desbanir usuário</button>
+					{{else}}
+					<button type="submit" form="banUsuario" class="btn btn-warning text-dark">Desbanir usuário</button>
+					{{/if}}
 				</div>
 			</div>
 		</div>

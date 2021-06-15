@@ -81,19 +81,21 @@
 	}
 </style>
 
-<script type="text/javascript">
-	let checarSenha = function() {
-		if(document.getElementById('senhaNova1').value.length >= 5){
-			if(document.getElementById('senhaNova1').value == document.getElementById('senhaNova2').value) {
-				document.getElementById('avisoSenha').style.color = 'green'
-				document.getElementById('avisoSenha').innerHTML = 'Tudo certo!'
+{{#section 'body'}}
+	<script type="text/javascript">
+		let checarSenha = function() {
+			if(document.getElementById('senhaNova1').value.length >= 5){
+				if(document.getElementById('senhaNova1').value == document.getElementById('senhaNova2').value) {
+					document.getElementById('avisoSenha').style.color = 'green'
+					document.getElementById('avisoSenha').innerHTML = 'Tudo certo!'
+				} else {
+					document.getElementById('avisoSenha').style.color = 'red'
+					document.getElementById('avisoSenha').innerHTML = 'As senhas têm de bater!'
+				}
 			} else {
 				document.getElementById('avisoSenha').style.color = 'red'
-				document.getElementById('avisoSenha').innerHTML = 'As senhas têm de bater!'
+				document.getElementById('avisoSenha').innerHTML = 'A senha é muito pequena!'
 			}
-		} else {
-			document.getElementById('avisoSenha').style.color = 'red'
-			document.getElementById('avisoSenha').innerHTML = 'A senha é muito pequena!'
 		}
-	}
-</script>
+	</script>
+{{/section}}

@@ -3,6 +3,7 @@
 	const handlebars 	= require('express-handlebars')
 	const bodyParser 	= require('body-parser')
 	const app 			= express()
+
 	const admin 		= require('./routes/admin')
 	const usuarios 		= require('./routes/usuario')
 	const path 			= require('path')
@@ -199,6 +200,7 @@
 
 //	Outros
 const PORT = 8080
+
 app.listen(PORT, () => {
 	console.log('Rodando em http://localhost:' + PORT)
 })

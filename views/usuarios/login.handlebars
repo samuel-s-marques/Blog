@@ -1,17 +1,49 @@
-<h3>Login:</h3>
-<hr>
+<div class="row justify-content-sm-center h-100">
+	<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+		<div class="card shadow mt-5">
+			<div class="card-body p-5">
+				<h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
+						
+				<form action="" class="needs-validation" method="post" novalidate="" autocomplete="on">
+					<div class="mb-3">
+						<label class="mb-2 text-muted" for="email">E-mail:</label>
+						<input type="email" id="email" name="email" class="form-control" autofocus required>
 
-<div class="card">
-	<div class="card-body">
-		<form action="" method="post">
-			<label for="email" class="pdt">E-mail:</label>
-			<input type="email" name="email" class="form-control" required>
-			<label for="senha" class="pdt">Senha:</label>
-			<input type="password" name="senha" class="form-control" required>
+						<div class="invalid-feedback">
+							E-mail invalido.
+						</div>
+					</div>
 
-			<button class="btn btn-success mt-2" type="submit">Entrar</button>
-		</form>
+					<div class="mb-3">
+						<div class="mb-2 w-100">
+							<label class="text-muted" for="password">Senha:</label>
+							<a href="#" class="float-end">Esqueceu a senha?</a>
+						</div>
+
+						<input type="password" id="senha" name="senha" class="form-control" required>
+						<div class="invalid-feedback">
+							Senha invalida.
+						</div>
+					</div>
+
+					<div class="d-flex align-items-center">
+						<div class="form-check">
+							<input type="checkbox" id="lembre" name="lembre" class="form-check-input">
+							<label for="lembre" class="form-check-label">Lembre-se de mim</label>
+						</div>
+
+						<button type="submit" class="btn btn-primary ms-auto">
+							Login
+						</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="card-footer py-3 border-0">
+				<div class="text-center">
+					Não possui uma conta? <a href="/usuarios/registro" class="text-dark text-decoration-underline">Crie uma.</a>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
-
-<small><a href="/usuarios/registro">Cadastre-se, caso não tenha conta!</a></small>

@@ -4,37 +4,66 @@
 
 {{/each}}
 
-<h3>Registre-se</h3>
-<hr>
+<div class="row justify-content-sm-center h-100">
+	<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+		<div class="card shadow mt-5">
+			<div class="card-body p-5">
+				<h1 class="fs-4 card-title fw-bold mb-4">Registre-se</h1>
+			
+				<form class="" method="post" class="needs-validation" novalidate="" autocomplete="on">
+					<div class="mb-3">
+						<label class="mb-2 text-muted" for="nome">Nome:</label>
+						<input id="nome" type="text" name="nome" class="form-control" autofocus required>
+						<div class="invalid-feedback">
+							Nome inválido.
+						</div>
+					</div>
 
-<div class="card">
-	<div class="card-body">
-		<form action="" method="post">
-			<label for="nome" class="pdt">Nome:</label>
-			<input id="nome" type="text" name="nome" class="form-control" required onkeyup="checarNome()">
-			<small id="avisoNome"></small><br>
+					<div class="mb-3">
+						<label class="mb-2 text-muted" for="email">E-mail:</label>
+						<input id="email" type="email" name="email" class="form-control" required onkeyup="checarEmail()" minlength="3">
+						<div class="invalid-feedback">
+							E-mail inválido.
+						</div>
+					</div>
 
-			<label for="email" class="pdt">E-mail:</label>
-			<input id="email" type="email" name="email" class="form-control" required onkeyup="checarEmail()" minlength="3">
-			<small id="avisoEmail"></small><br>
+					<div class="mb-3">
+						<label class="mb-2 text-muted" for="senha">Senha:</label>
+						<input type="password" id="senha" name="senha" class="form-control" required onkeyup="checarSenha()" minlength="5">
+						<div class="invalid-feedback">
+							Senha inválida.
+						</div>
+						<small id="avisoSenha"></small>
+					</div>
 
-			<div class="row">
-				<div class="col">
-					<label for="senha" class="pdt">Senha:</label>
-					<input type="password" id="senha" name="senha" class="form-control" required onkeyup="checarSenha()" minlength="5">
-				</div>
-				<div class="col">
-					<label for="senha2" class="pdt">Senha <small>(novamente)</small>:</label>
-					<input type="password" id="senha2" name="senha2" class="form-control" required onkeyup="checarSenha()" minlength="5">
-					<small id="avisoSenha"></small><br>
+					<div class="mb-3">
+						<label class="mb-2 text-muted" for="senha2">Senha <small>(novamente)</small>:</label>
+						<input type="password" id="senha2" name="senha2" class="form-control" required onkeyup="checarSenha()" minlength="5">
+						<div class="invalid-feedback">
+							Senha inválida.
+						</div>
+						<small id="avisoSenha"></small>
+					</div>
+
+					<p class="form-text text-muted mb-3">
+						Ao se registrar, você concorda com os nossos <a href="#" class="text-decoration-none">Termos e Condições</a>.
+					</p>
+					
+					<div class="align-items-center d-flex">
+						<button type="submit" class="btn btn-primary ms-auto">Registre-se</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="card-footer py-3 border-0">
+				<div class="text-center">
+					Já possui uma conta? <a href="/usuarios/login" class="text-dark text-decoration-underline">Faça login.</a>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-success">Criar conta</button>
-		</form>
+		</div>
 	</div>
 </div>
 
-<small><a href="/usuarios/login">Logue-se, caso tenha conta!</a></small>
 {{#section 'body'}}
 	<script type="text/javascript">
 		let checarSenha = function() {
@@ -51,42 +80,6 @@
 			} else {
 				avisoSenha.style.color = 'red'
 				avisoSenha.innerText = 'A senha é muito pequena!'
-			}
-		}
-
-		let checarEmail = function() {
-			const email = document.getElementById('email').value
-			const avisoEmail = document.getElementById('avisoEmail')
-			
-			if (email.length >= 1){
-				if (validateEmail(email)){
-					avisoEmail.style.color = 'green'
-					avisoEmail.innerText = 'Tudo certo!'
-				} else {
-					avisoEmail.style.color = 'red'
-					avisoEmail.innerText = 'E-mail inválido!'
-				}
-			} else {
-				avisoEmail.style.color = 'red'
-				avisoEmail.innerText = 'E-mail necessário!'
-			}
-		}
-
-		let validateEmail = function(email) {
-			const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-			return re.test(email)
-		}
-
-		let checarNome = function() {
-			const nome = document.getElementById('nome').value
-			const avisoNome = document.getElementById('avisoNome')
-
-			if (nome.length >= 1){
-				avisoNome.style.color = 'green'
-				avisoNome.innerText = 'Tudo certo!'
-			} else {
-				avisoNome.style.color = 'red'
-				avisoNome.innerText = 'Nome necessário!'
 			}
 		}
 	</script>

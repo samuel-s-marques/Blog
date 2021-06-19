@@ -14,11 +14,11 @@ A simple Node.Js blog application.
 - [ ] Donate page
 - [x] Users page
 
-### [Images](https://imgur.com/a/smMON1d)
+### [Images](https://imgur.com/a/YlymbLP)
 
-| Homepage | New category | New post
-|:---------------------------------------:|:-----------------------------------:|:-------------------------------:|
-| ![home](https://i.imgur.com/QVK8smH.png) | ![addcategory](https://i.imgur.com/Vkt45gG.png) | ![add](https://i.imgur.com/RS0bFwG.png)
+| Homepage | New category (admin) | New post (admin) | Users list (admin) | Register | Login
+|:---------------------------------------:|:-----------------------------------:|:-------------------------------:|:-------------------------------:|:-------------------------------:|:-------------------------------:|
+| ![home](https://i.imgur.com/DhFaqZM.png) | ![addcategory](https://i.imgur.com/Vkt45gG.png) | ![add](https://i.imgur.com/RS0bFwG.png) | ![users list](https://i.imgur.com/P6ISrsy.png) | ![register](https://i.imgur.com/V5Fa9qx.png) | ![login](https://i.imgur.com/3qsezQ4.png)
 
 ### Local installation
 1. Install [Node.js](https://nodejs.org/en/)
